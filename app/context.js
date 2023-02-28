@@ -109,10 +109,17 @@ class Context {
     const sources = getSources();
     const newSources = {};
     if (this.event.isGroup && !sources[this.groupId]) {
-      newSources[this.groupId] = new Source({ type: SOURCE_TYPE_GROUP, isActivated: !config.BOT_DEACTIVATED });
+      newSources[this.groupId] = new Source({
+        type: SOURCE_TYPE_GROUP,
+        isActivated: !config.BOT_DEACTIVATED,
+      });
     }
     if (!sources[this.userId]) {
-      newSources[this.userId] = new Source({ type: SOURCE_TYPE_USER, isActivated: !config.BOT_DEACTIVATED });
+      newSources[this.userId] = new Source({
+        type: SOURCE_TYPE_USER,
+        isActivated: !config.BOT_DEACTIVATED,
+        usages:
+      });
     }
     Object.assign(sources, newSources);
     if (Object.keys(newSources).length > 0) await setSources(sources);
