@@ -25,7 +25,7 @@ class Completion {
  * @param {string} param.prompt
  * @returns {Promise<Completion>}
  */
-const generateCompletion = async ({
+const completeText = async ({
   prompt,
 }) => {
   if (config.APP_ENV !== 'production') return new Completion({ text: MOCK_TEXT_OK });
@@ -37,4 +37,4 @@ const generateCompletion = async ({
   });
 };
 
-export default generateCompletion;
+export default completeText;

@@ -1,4 +1,4 @@
-import { generateCompletion } from '../../utils/index.js';
+import { completeText } from '../../utils/index.js';
 import { ALL_COMMANDS, COMMAND_BOT_CONTINUE } from '../commands/index.js';
 import Context from '../context.js';
 import { updateHistory } from '../history/index.js';
@@ -21,7 +21,7 @@ const exec = (context) => check(context) && (
     const { lastSentence } = prompt;
     if (lastSentence.isEnquiring) prompt.erase();
     try {
-      const { text, isFinishReasonStop } = await generateCompletion({ prompt: prompt.toString() });
+      const { text, isFinishReasonStop } = await completeText({ prompt: prompt.toString() });
       prompt.patch(text);
       if (lastSentence.isEnquiring && !isFinishReasonStop) prompt.write('', lastSentence.text);
       setPrompt(context.userId, prompt);

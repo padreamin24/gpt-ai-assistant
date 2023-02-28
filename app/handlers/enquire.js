@@ -1,7 +1,7 @@
 import { TYPE_TRANSLATE } from '../../constants/command.js';
 import { t } from '../../locales/index.js';
 import { PARTICIPANT_AI, PARTICIPANT_HUMAN } from '../../services/openai.js';
-import { generateCompletion, getCommand } from '../../utils/index.js';
+import { completeText, getCommand } from '../../utils/index.js';
 import { ALL_COMMANDS, COMMAND_BOT_CONTINUE, ENQUIRE_COMMANDS } from '../commands/index.js';
 import Context from '../context.js';
 import { getHistory, updateHistory } from '../history/index.js';
@@ -32,7 +32,7 @@ const exec = (context) => check(context) && (
     const prompt = getPrompt(context.userId);
     prompt.write(PARTICIPANT_HUMAN, content).write(PARTICIPANT_AI);
     try {
-      const { text, isFinishReasonStop } = await generateCompletion({ prompt: content });
+      const { text, isFinishReasonStop } = await completeText({ prompt: content });
       prompt.patch(text);
       if (!isFinishReasonStop) prompt.write('', command.type);
       setPrompt(context.userId, prompt);
